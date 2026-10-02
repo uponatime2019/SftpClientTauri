@@ -31,7 +31,7 @@ npm run tauri build
 
 ## Download a release
 
-Published installers are available on the [GitHub Releases page](https://github.com/uponatime2019/SftpClientTauri/releases). The release workflow builds Windows x64, Linux x64 and ARM64, and macOS Intel and Apple Silicon packages.
+Published installers are available on the [GitHub Releases page](https://github.com/uponatime2019/SftpClientTauri/releases). The release workflow builds Windows x64, Linux x64 and ARM64, and macOS Intel and Apple Silicon packages. Windows also ships a portable executable (`SFTP.Client_*_x64_portable.exe`) that runs without installation.
 
 macOS builds are ad-hoc signed and are not notarized. macOS may require allowing the app in Privacy & Security.
 

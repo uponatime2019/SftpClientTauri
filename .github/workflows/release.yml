@@ -95,6 +95,21 @@ jobs:
           prerelease: false
           args: ${{ matrix.args }}
 
+      # Portable Windows build: the raw release exe (no installer) uploaded as an asset.
+      - name: Build portable Windows executable
+        if: matrix.platform == 'windows-latest'
+        run: npx tauri build --no-bundle
+
+      - name: Upload portable Windows executable to release
+        if: matrix.platform == 'windows-latest'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          Copy-Item "src-tauri/target/release/sftp-client-tauri.exe" "SFTP.Client_1.0.0_x64_portable.exe"
+          gh release upload $tag "SFTP.Client_1.0.0_x64_portable.exe" --clobber
+
   publish:
     name: Publish GitHub release
     needs: [create-release, build]
