@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111318" />
+    <title>SFTP Client</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand"><div class="brand-mark">↗</div><div><div class="brand-name">SFTP Client</div><div class="brand-subtitle">Secure file transfer</div></div></div>
+        <div class="connection-controls">
+          <label class="sr-only" for="connection-select">Connection</label>
+          <select id="connection-select"><option value="">Choose a connection</option></select>
+          <button class="button" id="connect-button">Connect</button>
+          <button class="icon-button" id="add-connection" title="Add connection">＋</button>
+          <button class="icon-button" id="edit-connection" title="Edit connection" disabled>✎</button>
+          <button class="icon-button danger-quiet" id="delete-connection" title="Delete connection" disabled>×</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="favorites-row" id="favorites-row" aria-label="Favorite folders"></section>
+        <section class="pathbar">
+          <button class="icon-button" id="up-button" title="Go up one folder" disabled>↑</button>
+          <div class="path-caption">REMOTE PATH</div>
+          <div id="path-text" class="path-text">Not connected</div>
+          <button class="button quiet" id="favorite-button" disabled>☆ Favorite</button>
+          <button class="button quiet" id="refresh-button" disabled>↻ Refresh</button>
+        </section>
+
+        <section class="toolbar">
+          <div class="toolbar-actions">
+            <button class="button primary" id="upload-button" disabled>↑ <span>Upload</span></button>
+            <button class="button" id="edit-button" disabled>✎ <span>Edit</span></button>
+            <button class="button" id="download-button" disabled>↓ <span>Download</span></button>
+            <button class="button danger-quiet" id="delete-button" disabled>⌫ <span>Delete</span></button>
+          </div>
+          <div class="selection-hint" id="selection-hint">Connect to a server to browse files</div>
+        </section>
+
+        <section class="file-panel">
+          <table>
+            <thead><tr><th class="name-column">Name</th><th class="size-column">Size</th><th class="modified-column">Modified</th></tr></thead>
+            <tbody id="file-rows"><tr class="empty-row"><td colspan="3"><div class="empty-state"><div class="empty-icon">⇄</div><div class="empty-title">Your server files will appear here</div><div class="empty-copy">Choose a saved connection above to get started.</div></div></td></tr></tbody>
+          </table>
+        </section>
+      </main>
+
+      <footer class="statusbar"><span id="status-dot" class="status-dot"></span><span id="status-text">Disconnected</span><span class="status-spacer"></span><span id="item-count"></span></footer>
+    </div>
+
+    <dialog id="connection-dialog" class="connection-dialog">
+      <form id="connection-form">
+        <div class="dialog-heading"><div><div class="eyebrow">SERVER PROFILE</div><h2 id="dialog-title">Add connection</h2></div><button type="button" class="icon-button dialog-close" id="close-dialog" aria-label="Close">×</button></div>
+        <input type="hidden" id="connection-id" />
+        <label>Connection name<input id="alias-input" required placeholder="Production server" /></label>
+        <div class="form-row"><label>Host<input id="host-input" required placeholder="sftp.example.com" /></label><label class="port-field">Port<input id="port-input" type="number" min="1" max="65535" value="22" required /></label></div>
+        <label>Username<input id="username-input" required autocomplete="username" placeholder="your username" /></label>
+        <label>Password<input id="password-input" type="password" autocomplete="new-password" placeholder="Stored in Windows Credential Manager" /></label>
+        <label>SSH private key path <span class="optional">(optional)</span><input id="key-input" placeholder="C:\\Users\\you\\.ssh\\id_ed25519" /></label>
+        <p class="credential-note">Saved passwords are kept in Windows Credential Manager.</p>
+        <div class="dialog-actions"><button type="button" class="button" id="cancel-dialog">Cancel</button><button type="submit" class="button primary">Save connection</button></div>
+      </form>
+    </dialog>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
